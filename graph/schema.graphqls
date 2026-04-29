@@ -1,0 +1,16 @@
+# GraphQL schema example
+#
+# https://gqlgen.com/getting-started/
+
+type Seat{
+  seatId : String!
+  status : String!
+}
+
+type Query{
+  seats:[Seat!]!
+}
+
+type Subscription{
+  seatUpdated:Seat!
+}

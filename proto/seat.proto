@@ -1,0 +1,35 @@
+syntax = "proto3";
+
+package seat;
+
+option go_package = "./proto";
+
+service SeatService {
+  rpc SeatStream(stream SeatEvent) returns (stream SeatEvent);  // this is for bidrectional streaming
+  rpc ReleaseSeat(SeatRequest) returns (Empty);
+  rpc ConfirmSeat(SeatRequest) returns (Empty);
+  rpc GetAvailableSeats(Empty) returns (SeatList);
+}
+
+message SeatEvent {
+  string seatId = 1;
+  string userId = 2;
+  string action = 3;
+}
+
+message SeatRequest {
+  string seatId = 1;
+}
+
+message Seat {
+  string seatId =1;
+  string status =2;
+  string userId=3;
+}
+
+message SeatList{
+  repeated Seat Seats = 1 ;
+
+}
+
+message Empty {}
