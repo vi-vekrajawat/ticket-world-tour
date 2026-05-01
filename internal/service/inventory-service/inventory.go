@@ -67,7 +67,7 @@ func (s *InventoryService) SeatStream(stream pb.SeatService_SeatStreamServer) er
 func (s *InventoryService) lockSeat(seatID, userID string) bool {
 
 	key := "seatId:"+seatID
-	 ok , err := config.ClientRadis.SetNX(config.Ctx, key , userID, 4*time.Second).Result()
+	 ok , err := config.ClientRadis.SetNX(config.Ctx, key , userID, 2*time.Minute).Result()
 	 if err!=nil{
 		log.Println("Redis error", err)
 		return false 

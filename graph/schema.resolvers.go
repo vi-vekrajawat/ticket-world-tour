@@ -7,18 +7,33 @@ package graph
 
 import (
 	"context"
-	"fmt"
 	"ticket-system/graph/model"
+	pb "ticket-system/proto"
 )
 
 // Seats is the resolver for the seats field.
 func (r *queryResolver) Seats(ctx context.Context) ([]*model.Seat, error) {
-	panic(fmt.Errorf("not implemented: Seats - seats"))
+	// panic(fmt.Errorf("not implemented: Seats - seats"))
+	res, err := r.SeatClient.GetAvailableSeats(ctx,&pb.Empty{})
+	if err!=nil{
+		return nil, err
+	}
+
+	var seats[]*model.Seat
+
+	for _,s:=range res.Seats{
+		seats = append(seats, &model.Seat{
+			SeatID: s.SeatId,
+			Status: s.Status,
+		})
+	}
+
+	return seats , nil
 }
 
 // SeatUpdated is the resolver for the seatUpdated field.
 func (r *subscriptionResolver) SeatUpdated(ctx context.Context) (<-chan *model.Seat, error) {
-	panic(fmt.Errorf("not implemented: SeatUpdated - seatUpdated"))
+	return r.SeatChannel, nil
 }
 
 // Query returns QueryResolver implementation.

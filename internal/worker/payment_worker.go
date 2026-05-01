@@ -43,7 +43,7 @@ func fakePaymentSuccess() <-chan bool {
 	ch := make(chan bool)
 
 	go func() {
-		time.Sleep(18 * time.Second)
+		time.Sleep(5 * time.Second)
 		ch <- true
 	}()
 
